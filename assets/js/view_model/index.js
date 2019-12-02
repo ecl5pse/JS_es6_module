@@ -3,9 +3,7 @@
 import {timerValueElem , timerResetElem, timerStartElem , timerStopElem} from '../model/controls.js'
 
 
-const data = new Date();
-data.setHours(0,0,0,0);
-
+const date = new Date();
 let intervalid = null;
 
 timerStartElem.onclick = function () {
@@ -17,6 +15,7 @@ timerStartElem.onclick = function () {
 };
 
 
+
 timerStopElem.onclick = function () {
     if(intervalid){
         clearInterval(intervalid);
@@ -26,15 +25,27 @@ timerStopElem.onclick = function () {
 
 };
 
+timerResetElem.onclick = resetTimerValue;
+timerResetElem.click();
+
+
+
+function resetTimerValue() {
+
+    date.setHours(0,0,0,0);
+    refreshTimerValue();
+
+}
+
 function incrementDateSecond() {
 
-    data.setSeconds(data.getSeconds() + 1);
+    date.setSeconds(date.getSeconds() + 1);
     refreshTimerValue();
 
 }
 
 function refreshTimerValue() {
-    timerValueElem.innerText = `${myFormat(data.getMinutes())}:${myFormat(data.getSeconds())}`
+    timerValueElem.innerText = `${myFormat(date.getMinutes())}:${myFormat(date.getSeconds())}`
 
 }
 
@@ -43,4 +54,3 @@ function myFormat(value) {
     return value < 10 ? `0${value}` : value;
 
 }
-refreshTimerValue();
